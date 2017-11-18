@@ -18,6 +18,7 @@ var $shapeInput = document.querySelector("#shape");
 var $loadMoreBtn = document.querySelector("#loadBtn");
 // Add an event listener to the searchButton, call handleSearchButtonClick when clicked
 $searchBtn.addEventListener("click", handleSearchButtonClick);
+
 // $dateSearchBtn.addEventListener("click", handleDateSearchButtonClick);
 // $citySearchBtn.addEventListener("click", handlecitySearchButtonClick);
 // $shapeSearchBtn.addEventListener("click", handleShapeSearchButtonClick);
@@ -34,9 +35,22 @@ var startingIndex = 0;
 var resultsPerPage = 10;
 
 $loadMoreBtn.innerText = "Load Next " + resultsPerPage + " addresses"
+$loadMoreBtn.addEventListener ("click",pagesCall(resultsPerPage));
+
+function renderNext(howMany){
+    resultsPerPage = howMany ;
+    $loadMoreBtn.innerText = "Load Next " + resultsPerPage + " addresses";
+    renderTable(howMany);
+}
+
+$loadMoreBtn.addEventListener ("click",pagesCall(resultsPerPage));
+function  pagesCall(rowsPerPage){
+    console.log("Rows Per Page: " + rowsPerPage);
+    renderTable (rowsPerPage);
+}
 
 // renderTable renders the filteredAddresses to the tbody
-function renderTable() {
+function renderTable(resultsPerPage) {
   $tbody.innerHTML = "";
     // Set the value of endingIndex to startingIndex + resultsPerPage
   var endingIndex = startingIndex + resultsPerPage;
@@ -66,7 +80,7 @@ function handleSearchButtonClick() {
   var filterDate  = $dateInput.value.trim();
 
   // default the inouts
-  if (filterDate == '') {filterDate = '1/1/2010'};
+  // if (filterDate == '') {filterDate = '1/1/2010'};
 
   // Set filteredAddresses to an array of all addresses whose "state" matches the filter
   filteredAddresses = dataSet.filter(function(address) {
@@ -93,7 +107,7 @@ function handleSearchButtonClick() {
       }
     }
 });
-  renderTable();
+  renderTable(resultsPerPage);
   sortTable(2);
 }
 
@@ -109,7 +123,7 @@ function handlecitySearchButtonClick() {
     // If true, add the address to the filteredAddresses, otherwise don't add it to filteredAddresses
     return addressCity === filterCity;
   });
-  renderTable();
+  renderTable(resultsPerPage);
 }
 
 
@@ -124,7 +138,7 @@ function handleShapeSearchButtonClick() {
     // If true, add the address to the filteredAddresses, otherwise don't add it to filteredAddresses
     return addressShape === filterShape;
   });
-  renderTable();
+  renderTable(resultsPerPage);
 }
 
 function handleDateSearchButtonClick() {
@@ -138,7 +152,7 @@ function handleDateSearchButtonClick() {
     // If true, add the address to the filteredAddresses, otherwise don't add it to filteredAddresses
     return ufoDate === filterDate;
   });
-  renderTable();
+  renderTable(resultsPerPage);
 }
 
 // Add an event listener to the button, call handleButtonClick when clicked
@@ -147,7 +161,7 @@ $loadMoreBtn.addEventListener("click", handleButtonClick);
 function handleButtonClick() {
   // Increase startingIndex by 100 and render the next section of the table
   startingIndex += resultsPerPage;
-  renderTable();
+  renderTable(resultsPerPage);
   sortTable(2);
   // Check to see if there are any more results to render
   if (startingIndex + resultsPerPage >= filteredAddresses.length) {
@@ -211,6 +225,5 @@ function sortTable(n) {
     }
   }
 }
-
-renderTable();
+renderTable(resultsPerPage);
 sortTable(2);

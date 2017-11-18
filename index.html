@@ -44,9 +44,9 @@
     <br>
     <div class="row">
       <div class="btn-group col-md-6 col-md-offset-6  text-right" data-toggle="buttons">
-        <label id='r1' class="radio-inline active"><input type="radio" name="optradio" checked="">10 Results / Page</label>
-        <label id='r2' class="radio-inline"><input type="radio" name="optradio">20 Results / Page</label>
-        <label id='r3' class="radio-inline"><input type="radio" name="optradio">30 Results / Page</label>
+        <label id='r1' class="radio-inline active" onclick="renderNext(10)"><input type="radio" name="optradio" checked="">10 Results / Page</label>
+        <label id='r2' class="radio-inline" onclick="renderNext(20)"><input type="radio" name="optradio">20 Results / Page</label>
+        <label id='r3' class="radio-inline" onclick="renderNext(30)"><input type="radio" name="optradio">30 Results / Page</label>
       </div>
       <div class="col-md-6 col-md-offset-6  text-right">
         <button id="loadBtn" class="btn btn-success"></button>
@@ -78,7 +78,7 @@
       </div>
     </div>
   </div>
-  <script src="ufoDataSample.js" type="text/javascript"></script>
+  <script src="ufoData.js" type="text/javascript"></script>
   <script src="ufoTableCreate.js" type="text/javascript"></script>
 </body>
 
